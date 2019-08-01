@@ -1,45 +1,33 @@
-import React, { Fragment, useEffect} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import axios from 'axios';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
-import { CLIENT_ID, API_KEY, DEV_URL, DISCOVERY_DOCS, OAUTH2_SCOPE}  from './config.js';
+import { API_KEY, FOLDERID, DRIVE_API } from './config.js';
 
 function App() {
+  const [images, setImages] = useState([])
 
-  const loadGoogleAPI = () => {
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/platform.js";
-
-    script.onload = () => {
-      window.gapi.load('client:auth2', () => {
-        window.gapi.client.init({
-          apiKey : API_KEY,
-          clientId : CLIENT_ID,
-          scope : OAUTH2_SCOPE,
-          discoveryDocs : DISCOVERY_DOCS
-        }).then( () => {
-          var GoogleAuth = window.gapi.auth2.getInstance();
-          GoogleAuth.isSignedIn.listen(updateSignInStatus);
-        })
-      });
-    }
-
-    document.body.appendChild(script);
-  }
-  
   useEffect(() => {
-    loadGoogleAPI();
-  })
-
-
-
-  const updateSignInStatus = () => {
-    console.log("Update");
-  }
+    axios.get(DRIVE_API, {
+      params: {
+        q: `'${FOLDERID}' in parents`,
+        key: API_KEY
+      }
+    }).then((res) => {
+      setImages(res.data.files);
+    }).catch(err => {
+      console.log(err);
+    })
+  }, [])
 
   return (
     <Fragment>
-      <Header/>
-      <Footer/>
+      <Header />
+      {images.map((image) => {
+        let url = `https://drive.google.com/uc?id=${image.id}`;
+        return <img src={url} />
+      })}
+      <Footer />
     </Fragment>
   );
 }
