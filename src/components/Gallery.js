@@ -55,12 +55,13 @@ function Gallery(props) {
         })}
       </div>
       <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
-        <button onClick={onModalClose} className="btn btn-danger modal-close">Close</button>
+        <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem" }} className="btn btn-danger modal-close">Close</button>
         <div className="container modal-container">
           <div className="col d-flex align-items-center justify-content-center h-100">
             <Spinner isVisible={modalImageLoaded} />
             <img onLoad={onModalImageLoad} style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
           </div>
+          <p style={{ display: modalImageLoaded }} className="font-italic m-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit </p>
         </div>
       </ReactModal>
     </Fragment>

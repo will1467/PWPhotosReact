@@ -14,12 +14,14 @@ function Header() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/"> Home <span className="sr-only">(current)</span> </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/category1">Categories</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">Pricing</Link>
-                        </li>
+                        <div className="dropdown">
+                            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories<span className="caret"></span> </button>
+                            <div className="dropdown-menu">
+                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
+                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
+                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
+                            </div>
+                        </div>
                         <li className="nav-item">
                             <Link className="nav-link" to="/">About</Link>
                         </li>
