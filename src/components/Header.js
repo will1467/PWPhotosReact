@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 function Header() {
+
     return (
         <Fragment>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                <Link className="navbar-brand" to="/">Philip Wrigley's Photos</Link>
+                <NavLink to="/" className="navbar-brand">Philip Wrigley's Photos</NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                     aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -12,18 +13,18 @@ function Header() {
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/"> Home <span className="sr-only">(current)</span> </Link>
+                            <NavLink to="/" activeClassName='active' className="nav-link"> Home </NavLink>
                         </li>
                         <div className="dropdown">
                             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories<span className="caret"></span> </button>
                             <div className="dropdown-menu">
-                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
-                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
-                                <li className="dropdown-item"> <Link to="/category1">Categories</Link> </li>
+                                <li className="dropdown-item"> <NavLink to="/category1" activeClassName='active'>Categories</NavLink> </li>
+                                <li className="dropdown-item"> <NavLink to="/category1" activeClassName='active'>Categories</NavLink> </li>
+                                <li className="dropdown-item"> <NavLink to="/category1" activeClassName='active'>Categories</NavLink> </li>
                             </div>
                         </div>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">About</Link>
+                            <NavLink to="/about" activeClassName='active' className="nav-link">About</NavLink>
                         </li>
                     </ul>
                 </div>

@@ -26,7 +26,7 @@ function Gallery(props) {
     }).catch(err => {
       console.log(err);
     })
-  }, [])
+  }, [props.folderId])
 
   const onImageClick = (imageId) => {
     setModalOpen(true);
@@ -42,13 +42,38 @@ function Gallery(props) {
 
   let modalUrl = `https://drive.google.com/uc?id=${modalImageSrc}`;
 
+  ReactModal.defaultStyles = {
+    overlay: {
+      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+    content: {
+      position: 'absolute',
+      top: '40px',
+      left: '40px',
+      right: '40px',
+      bottom: '40px',
+      border: '1px solid #ccc',
+      background: '#555',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: '4px',
+      outline: 'none',
+      padding: '20px'
+    }
+  }
+
   return (
     <Fragment>
       <div className="row">
         {images.map((image) => {
-          return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 border border-primary rounded image-border pt-2 pb-2">
+          return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 border thumbnail">
             <LazyLoad debounce={false} offsetVertical={500} once>
-              <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "200px" }} imageStyles={{ className: "w-100 mb-1" }} />
+              <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "200px" }} imageStyles={{ className: "w-100" }} />
             </LazyLoad>
           </div>
           )
@@ -57,9 +82,9 @@ function Gallery(props) {
       <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
         <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem" }} className="btn btn-danger modal-close">Close</button>
         <div className="container modal-container">
-          <div className="col d-flex align-items-center justify-content-center h-100">
+          <div className="d-flex align-items-center justify-content-center h-100">
             <Spinner isVisible={modalImageLoaded} />
-            <img onLoad={onModalImageLoad} style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
+            <img onLoad={onModalImageLoad} alt="train" className="image-border" style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
           </div>
           <p style={{ display: modalImageLoaded }} className="font-italic m-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit </p>
         </div>
