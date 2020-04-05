@@ -4,6 +4,7 @@ import { BANNER_FILE_ID, CATEGORY1_ID, CATEGORY2_ID, CATEGORY3_ID } from '../con
 import SmoothImage from 'react-smooth-image';
 
 function Home() {
+  
   return (
     <Fragment>
       <div className="row">

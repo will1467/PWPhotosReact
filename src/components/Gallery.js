@@ -9,6 +9,7 @@ import Spinner from './Spinner';
 function Gallery(props) {
 
   const [images, setImages] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState("");
   const [modalImageLoaded, setModelImageLoaded] = useState("none");
@@ -23,6 +24,7 @@ function Gallery(props) {
       }
     }).then((res) => {
       setImages(res.data.files);
+      setLoaded(true);
     }).catch(err => {
       console.log(err);
     })
@@ -57,8 +59,7 @@ function Gallery(props) {
       left: '40px',
       right: '40px',
       bottom: '40px',
-      border: '1px solid #ccc',
-      background: '#555',
+      background: 'rgba(255, 255, 255, 0.20)',
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
       borderRadius: '4px',
@@ -71,9 +72,9 @@ function Gallery(props) {
     <Fragment>
       <div className="row">
         {images.map((image) => {
-          return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 border thumbnail">
+          return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 thumbnail">
             <LazyLoad debounce={false} offsetVertical={500} once>
-              <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "200px" }} imageStyles={{ className: "w-100" }} />
+              <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px" }} imageStyles={{ className: "w-100" }} />
             </LazyLoad>
           </div>
           )
@@ -86,7 +87,6 @@ function Gallery(props) {
             <Spinner isVisible={modalImageLoaded} />
             <img onLoad={onModalImageLoad} alt="train" className="image-border" style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
           </div>
-          <p style={{ display: modalImageLoaded }} className="font-italic m-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit </p>
         </div>
       </ReactModal>
     </Fragment>

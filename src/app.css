@@ -1,8 +1,11 @@
 .thumbnail {
-    border-width: 2px !important;
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-    border-color: white !important;
+    padding: 7px;
+    border-radius: 4px;
+    border:  1px solid transparent;
+}
+
+body {
+  background-color : #e1e6ed !important;
 }
 
 .active {
@@ -18,10 +21,6 @@
   height: 100% !important;
 }
 
-image-border {
-  border: 1px solid white;
-}
-
 .banner {
   height: 900px;
   width: 100%;
@@ -30,7 +29,7 @@ image-border {
 
 .banner-title {
   font-size: 7rem;
-  color: white;
+  color: #dddedc
 }
 
 /* SPINNER */

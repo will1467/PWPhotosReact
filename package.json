@@ -10,7 +10,7 @@
     "react-modal": "^3.9.1",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.4.1",
     "react-smooth-image": "^1.1.0"
   },
   "scripts": {
