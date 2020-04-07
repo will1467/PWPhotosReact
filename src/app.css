@@ -8,6 +8,10 @@ body {
   background-color : #e1e6ed !important;
 }
 
+.category {
+  background-color: #758cf0 !important;
+}
+
 .active {
   color: rgb(204, 204, 204) !important;
 }
@@ -29,7 +33,7 @@ body {
 
 .banner-title {
   font-size: 7rem;
-  color: #dddedc
+  color: white;
 }
 
 /* SPINNER */

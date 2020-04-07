@@ -5,6 +5,7 @@ import LazyLoad from 'react-lazy-load';
 import axios from 'axios';
 import ReactModal from 'react-modal';
 import Spinner from './Spinner';
+import PhotoContentLoader from './PhotoContentLoader';
 
 function Gallery(props) {
 
@@ -12,23 +13,24 @@ function Gallery(props) {
   const [loaded, setLoaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState("");
-  const [modalImageLoaded, setModelImageLoaded] = useState("none");
-
+  const [modalImageLoaded, setModalImageLoaded] = useState("none");
+  const { folderid } = props.match.params;  
 
   useEffect(() => {
     axios.get(DRIVE_API, {
       params: {
-        q: `'${props.folderId}' in parents`,
+        q: `'${folderid}' in parents`,
         key: API_KEY,
         fields: "files(id,thumbnailLink)"
       }
     }).then((res) => {
       setImages(res.data.files);
-      setLoaded(true);
     }).catch(err => {
       console.log(err);
     })
   }, [props.folderId])
+
+  setTimeout( () => (setLoaded(true)), 1000);
 
   const onImageClick = (imageId) => {
     setModalOpen(true);
@@ -37,10 +39,10 @@ function Gallery(props) {
 
   const onModalClose = () => {
     setModalOpen(false);
-    setModelImageLoaded('none');
+    setModalImageLoaded('none');
   }
 
-  const onModalImageLoad = () => (setModelImageLoaded(""));
+  const onModalImageLoad = () => (setModalImageLoaded(""));
 
   let modalUrl = `https://drive.google.com/uc?id=${modalImageSrc}`;
 
@@ -70,27 +72,29 @@ function Gallery(props) {
 
   return (
     <Fragment>
-      <div className="row">
-        {images.map((image) => {
-          return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 thumbnail">
-            <LazyLoad debounce={false} offsetVertical={500} once>
-              <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px" }} imageStyles={{ className: "w-100" }} />
-            </LazyLoad>
-          </div>
-          )
-        })}
-      </div>
-      <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
-        <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem" }} className="btn btn-danger modal-close">Close</button>
-        <div className="container modal-container">
-          <div className="d-flex align-items-center justify-content-center h-100">
-            <Spinner isVisible={modalImageLoaded} />
-            <img onLoad={onModalImageLoad} alt="train" className="image-border" style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
-          </div>
+      <div className="container mt-4 mb-4">
+        <div className="row">
+          {loaded && images.map((image) => {
+            return (<div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 thumbnail">
+              <LazyLoad debounce={false} offsetVertical={500} once>
+                <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px" }} imageStyles={{ className: "w-100" }} />
+              </LazyLoad>
+            </div>
+            )
+          })}
+          {!loaded && <PhotoContentLoader/>}
         </div>
-      </ReactModal>
+        <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
+          <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem" }} className="btn btn-danger modal-close">Close</button>
+          <div className="container modal-container">
+            <div className="d-flex align-items-center justify-content-center h-100">
+              <Spinner isVisible={modalImageLoaded} />
+              <img onLoad={onModalImageLoad} alt="train" className="image-border" style={{ display: modalImageLoaded }} src={modalUrl} width="100%" height="100%" />
+            </div>
+          </div>
+        </ReactModal>
+    </div>
     </Fragment>
-
   );
 }
 
