@@ -28,7 +28,7 @@ function Gallery(props) {
     }).catch(err => {
       console.log(err);
     })
-  }, [props.folderId])
+  }, [props.match.params])
 
   setTimeout( () => (setLoaded(true)), 1000);
 

@@ -2,9 +2,11 @@ import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { BANNER_FILE_ID, CATEGORIES } from '../config';
 import SmoothImage from 'react-smooth-image';
-import { FOLDERID } from '../config.js';
 
 function Home() {
+
+  const rows = [...Array(Math.ceil(CATEGORIES.length / 3))];
+  const categoryRows = rows.map( (row, index) => CATEGORIES.slice(index * 3, index * 3 + 3));
   
   return (
     <Fragment>
@@ -16,26 +18,29 @@ function Home() {
         </div>
       </div>
       <div className="container">
-        <div className="row">
-          {CATEGORIES.map( (category) => {
+          {categoryRows.map((row, index) => {
             return (
-              <div class="col-md-4">
-
-              <div class="card mb-4 mt-4 box-shadow">
-                <SmoothImage src={`https://drive.google.com/uc?id=${category.IMAGEID}`} width="280px" height="150px" />
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <Link to={`/category/${category.FOLDERID}`} class="btn btn-sm btn-outline-secondary">View</Link>
+              <div className="row" key={index}>
+                {row.map((category) => {
+                  return (
+                    <div class="col-md-4">
+                    <div class="card mb-4 mt-4 box-shadow">
+                      <SmoothImage src={`https://drive.google.com/uc?id=${category.IMAGEID}`} width="280px" height="150px" />
+                      <div class="card-body">
+                        <h3 class="card-title">{category.NAME}</h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <Link to={`/category/${category.FOLDERID}`} class="btn btn-lg btn-outline-secondary">View</Link>
+                          </div>
+                        </div>
                     </div>
                   </div>
+                  </div>
+                  )
+                })}
               </div>
-            </div>
-        </div>          
-        )
+            )
           })}
-    </div>
     </div>
     </Fragment>
   );
