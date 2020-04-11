@@ -12,8 +12,10 @@ function Home() {
     <Fragment>
       <div className="row">
         <div className="banner" style={{ backgroundImage: `url(https://drive.google.com/uc?id=${BANNER_FILE_ID})` }}>
-          <div style={{marginTop:"220px"}} className="d-flex justify-content-center banner h-100">
-            <h1 className="banner-title">Philip Wrigley's Photos</h1>
+          <div style={{marginLeft: "50px"}} className="banner h-100 d-flex flex-column justify-content-center">
+            <h1 className="banner-title text-center">Philip Wrigley's Photos</h1>
+            <br></br>
+            <h4 className="text-center">A Photographic Collection of Railway Photos <br></br> by Railway Enthusiast Philip Wrigley</h4>
           </div>
         </div>
       </div>
@@ -23,14 +25,14 @@ function Home() {
               <div className="row" key={index}>
                 {row.map((category) => {
                   return (
-                    <div class="col-md-4">
-                    <div class="card mb-4 mt-4 box-shadow">
+                    <div className="col-md-4">
+                    <div className="card mb-4 mt-4 box-shadow">
                       <SmoothImage src={`https://drive.google.com/uc?id=${category.IMAGEID}`} width="280px" height="150px" />
-                      <div class="card-body">
-                        <h3 class="card-title">{category.NAME}</h3>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="btn-group">
-                            <Link to={`/category/${category.FOLDERID}`} class="btn btn-lg btn-outline-secondary">View</Link>
+                      <div className="card-body">
+                        <h3 className="card-title">{category.NAME}</h3>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div className="btn-group">
+                            <Link to={`/category/${category.FOLDERID}`} className="btn btn-lg btn-outline-secondary">View</Link>
                           </div>
                         </div>
                     </div>

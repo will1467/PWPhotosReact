@@ -4,6 +4,15 @@
     border:  1px solid transparent;
 }
 
+.about {
+  height: 800px;
+  margin-top: 50px;
+}
+
+.text-black {
+  color: black !important;
+}
+
 body {
   background-color : #e1e6ed !important;
 }

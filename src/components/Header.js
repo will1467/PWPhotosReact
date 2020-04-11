@@ -14,9 +14,6 @@ function Header() {
                 </button>
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <NavLink to="/" activeClassName='active' className="nav-link"> Home </NavLink>
-                        </li>
                         <div className="dropdown">
                             <button className="btn bg-headerfooter dropdown-toggle" type="button" data-toggle="dropdown">Categories<span className="caret"></span> </button>
                             <div className="dropdown-menu">
@@ -28,7 +25,7 @@ function Header() {
                             </div>
                         </div>
                         <li className="nav-item">
-                            <NavLink to="/about" activeClassName='active' className="nav-link">About</NavLink>
+                            <NavLink to="/about" activeClassName='active' className="nav-link">About Philip</NavLink>
                         </li>
                     </ul>
                 </div>
