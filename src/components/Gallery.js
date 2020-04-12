@@ -8,16 +8,38 @@ import Spinner from './Spinner';
 import PhotoContentLoader from './PhotoContentLoader';
 
 function Gallery(props) {
+
+  ReactModal.defaultStyles = {
+    overlay: {
+      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+    content: {
+      position: 'absolute',
+      top: '40px',
+      left: '40px',
+      right: '40px',
+      bottom: '40px',
+      background: 'rgba(255, 255, 255, 0.20)',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: '4px',
+      outline: 'none',
+      padding: '20px'
+    }
+  }
+
   const [images, setImages] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState("");
   const [modalImageLoaded, setModalImageLoaded] = useState("none");
-
   const { folderid } = props.match.params;
-
   let { NAME } = CATEGORIES.filter( (val) => (val.FOLDERID === folderid))[0];    
-
 
   useEffect(() => {
     const { folderid } = props.match.params;
@@ -58,35 +80,11 @@ function Gallery(props) {
       case 'Right':
         index = index + 1 === CATEGORIES.length ? 0 : index + 1;
         break;
+      default:
+        break;
     }
-
     props.history.push(`/category/${CATEGORIES[index].FOLDERID}`);
   }
-
-  ReactModal.defaultStyles = {
-    overlay: {
-      backgroundColor: 'rgba(255, 255, 255, 0.75)',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
-    },
-    content: {
-      position: 'absolute',
-      top: '40px',
-      left: '40px',
-      right: '40px',
-      bottom: '40px',
-      background: 'rgba(255, 255, 255, 0.20)',
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: '4px',
-      outline: 'none',
-      padding: '20px'
-    }
-  }
-
 
   return (
 
@@ -106,7 +104,7 @@ function Gallery(props) {
         <div className="row">
           {loaded && images.map((image) => {
             return (
-                <div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4 thumbnail">
+                <div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4" style={{padding: "7px", borderRadius: "4px", border: "1px solid transparent"}}>
                   <LazyLoad debounce={false} offsetVertical={500} once>
                     <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px" }} imageStyles={{ className: "w-100" }} />
                   </LazyLoad>
@@ -115,11 +113,11 @@ function Gallery(props) {
           {!loaded && <PhotoContentLoader/>}
         </div>
         <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
-          <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem" }} className="btn btn-danger modal-close">Close</button>
+          <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem", marginLeft: "90%", marginBottom:"10px" }} className="btn btn-danger" >Close</button>
           <div className="container modal-container">
             <div className="d-flex align-items-center justify-content-center h-100">
               <Spinner isVisible={modalImageLoaded} />
-              <img onLoad={onModalImageLoad} alt="train" className="image-border" style={{ display: modalImageLoaded }} 
+              <img onLoad={onModalImageLoad} alt="train" className="image-border image-full" style={{ display: modalImageLoaded }} 
                 src={`https://drive.google.com/uc?id=${modalImageSrc}`} width="100%" height="100%" />
             </div>
           </div>
