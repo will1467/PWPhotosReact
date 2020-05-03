@@ -6,9 +6,9 @@ function About() {
       <div className="container"> 
         <div className="row">
           <div className="about" style={{height: "100vh", marginTop: "50px"}}>
-            <div className="d-flex">
+            <div className="d-flex flex-column">
               <img src={AboutImage} alt="" className="img-thumbnail about-image"/>
-              <p className="pb-3 pl-3 pr-3 text-black">
+              <p className="p-3 text-black">
               A lifelong train enthusiast, as a child Philip limited himself mainly to his model layout in his boyhood on Auckland’s train less North Shore. Following his retirement from running his manufacturing business, Philip was able to pursue a much more active interest in rail topics. Philip tragically passed away from cancer in 2019. An excellent photographer, Philip’s collection of railway photos is displayed on this website for all to enjoy.
               <br></br>
               <br></br>

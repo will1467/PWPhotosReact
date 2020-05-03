@@ -5,17 +5,17 @@ import SmoothImage from 'react-smooth-image';
 
 function Home() {
 
-  const rows = [...Array(Math.ceil(CATEGORIES.length / 3))];
-  const categoryRows = rows.map( (row, index) => CATEGORIES.slice(index * 3, index * 3 + 3));
+  const rows = [...Array(Math.ceil(CATEGORIES.length / 2))];
+  const categoryRows = rows.map( (row, index) => CATEGORIES.slice(index * 2, index * 2 + 2));
   
   return (
     <Fragment>
       <div className="row">
         <div className="banner" style={{ backgroundImage: `url(https://drive.google.com/uc?id=${BANNER_FILE_ID})`, backgroundColor: "black" }}>
-          <div style={{marginLeft: "50px"}} className="banner h-100 d-flex flex-column justify-content-center">
-            <h1 style={{color: "white", fontSize: "5rem"}} className="banner-title text-center">Philip Wrigley's Photos</h1>
+          <div className="banner h-100 d-flex flex-column justify-content-center">
+            <h1 className="banner-title text-center">Philip Wrigley's Photos</h1>
             <br></br>
-            <h4 style={{fontSize: "2rem"}} className="text-center">A Photographic Collection of Railway Photos <br></br> by Railway Enthusiast Philip Wrigley</h4>
+            <h4 className="text-center banner-subtitle">A Photographic Collection of Railway Photos <br></br> by Railway Enthusiast Philip Wrigley</h4>
           </div>
         </div>
       </div>
@@ -25,9 +25,9 @@ function Home() {
               <div className="row" key={index}>
                 {row.map((category, index) => {
                   return (
-                    <div className="col-md-4" key={index}>
+                    <div className="col" key={index}>
                     <div className="card mb-4 mt-4 box-shadow">
-                      <SmoothImage src={`https://drive.google.com/uc?id=${category.IMAGEID}`} />
+                      <SmoothImage src={`https://drive.google.com/uc?id=${category.IMAGEID}`} imageStyles={{width: "100%", height: "60%"}} />
                       <div className="card-body">
                         <h3 style={{fontSize: "2rem"}} className="card-title">{category.NAME}</h3>
                         <div className="d-flex justify-content-between align-items-center">

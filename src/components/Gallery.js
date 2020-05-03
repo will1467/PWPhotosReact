@@ -6,9 +6,11 @@ import axios from 'axios';
 import ReactModal from 'react-modal';
 import Spinner from './Spinner';
 import PhotoContentLoader from './PhotoContentLoader';
+import { isMobile } from 'react-device-detect';
 
 function Gallery(props) {
 
+  const modalSize = isMobile ? 0 : '40px';
   ReactModal.defaultStyles = {
     overlay: {
       backgroundColor: 'rgba(255, 255, 255, 0.75)',
@@ -20,10 +22,10 @@ function Gallery(props) {
     },
     content: {
       position: 'absolute',
-      top: '40px',
-      left: '40px',
-      right: '40px',
-      bottom: '40px',
+      top: modalSize,
+      left: modalSize,
+      right: modalSize,
+      bottom: modalSize,
       background: 'rgba(255, 255, 255, 0.20)',
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
@@ -106,14 +108,14 @@ function Gallery(props) {
             return (
                 <div key={image.id} onClick={() => onImageClick(image.id)} className="col-sm-6 col-md-4" style={{padding: "7px", borderRadius: "4px", border: "1px solid transparent"}}>
                   <LazyLoad debounce={false} offsetVertical={500} once>
-                    <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px" }} imageStyles={{ className: "w-100" }} />
+                    <SmoothImage src={image.thumbnailLink} containerStyles={{ paddingBottom: "0", height: "180px"}} imageStyles={{ className: "w-100" }} />
                   </LazyLoad>
                  </div>            )
           })}
           {!loaded && <PhotoContentLoader/>}
         </div>
-        <ReactModal onRequestClose={onModalClose} isOpen={modalOpen} contentLabel="Example Modal">
-          <button onClick={onModalClose} style={{ paddingLeft: "2rem", paddingRight: "2rem", marginLeft: "90%", marginBottom:"10px" }} className="btn btn-danger" >Close</button>
+        <ReactModal onRequestClose={onModalClose} isOpen={modalOpen}>
+          <button onClick={onModalClose} className="btn btn-danger close-button" >Close</button>
           <div className="container modal-container">
             <div className="d-flex align-items-center justify-content-center h-100">
               <Spinner isVisible={modalImageLoaded} />

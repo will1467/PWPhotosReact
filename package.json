@@ -6,6 +6,7 @@
     "axios": "^0.19.0",
     "react": "^16.8.6",
     "react-content-loader": "^5.0.3",
+    "react-device-detect": "^1.12.1",
     "react-dom": "^16.8.6",
     "react-lazy-load": "^3.0.13",
     "react-modal": "^3.9.1",
